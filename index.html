@@ -216,15 +216,22 @@ body.light .social-icon-tg-light {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.messages::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 /* Bubbles */
 .msg {
   max-width: 75%;
-  padding: 20px 24px;
-  border-radius: 26px;
+  padding: 16px 20px;
+  border-radius: 20px;
   line-height: 1.4;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .msg.user {
@@ -243,8 +250,8 @@ body.light .social-icon-tg-light {
 
 .msg.ai::before {
   content: '';
-  width: 150px;
-  height: 90px;
+  width: 100px;
+  height: 60px;
   background-image: url('https://i.postimg.cc/yYSSJtNv/SSS-Transparent.png');
   background-size: contain;
   background-repeat: no-repeat;
