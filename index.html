@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SuperScriptsScience</title>
+
+<style>
+:root {
+  --bg: #000000;
+  --panel: #000000;
+  --panel-2: #020617;
+  --border: rgba(255,255,255,.08);
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #1310b9;
+}
+
+html {
+  font-size: 19px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* LIGHT MODE */
+body.light {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --panel-2: #f1f5f9;
+  --border: rgba(0,0,0,.08);
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #2563eb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+  width: clamp(240px, 20vw, 320px);
+  background: linear-gradient(to bottom, #000000, #000000);
+  border-right: 1px solid var(--border);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  min-height: clamp(120px, 14vw, 160px);
+  padding: 0 clamp(16px, 3vw, 24px);
+  margin-bottom: clamp(16px, 2vw, 24px);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-bottom: clamp(12px, 2vw, 20px);
+  position: relative;
+}
+
+.nav-item {
+  padding: 14px 16px;
+  border-radius: 8px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+  background: rgba(16,185,129,.12);
+  color: var(--text);
+}
+
+.nav-item.soon {
+  position: relative;
+}
+
+.nav-item.soon::after {
+  content: "Soon";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  color: var(--muted);
+}
+
+.nav-item.soon:hover::after {
+  opacity: 1;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+}
+
+.social-icon {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.7;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.social-icon-img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  display: block;
+}
+
+.social-icon-logo {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.social-icon-tg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.social-icon-logo-dark {
+  display: block;
+}
+
+.social-icon-logo-light {
+  display: none;
+}
+
+body.light .social-icon-logo-dark {
+  display: none;
+}
+
+body.light .social-icon-logo-light {
+  display: block;
+}
+
+.social-icon-tg-dark {
+  display: block;
+}
+
+.social-icon-tg-light {
+  display: none;
+}
+
+body.light .social-icon-tg-dark {
+  display: none;
+}
+
+body.light .social-icon-tg-light {
+  display: block;
+}
+
+/* Chat area */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 32px;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+  min-height: 64px;
+}
+
+.messages {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Bubbles */
+.msg {
+  max-width: 75%;
+  padding: 20px 24px;
+  border-radius: 26px;
+  line-height: 1.4;
+  font-size: 1.5rem;
+}
+
+.msg.user {
+  background: #111827;
+  align-self: flex-start;
+  border: 1px solid var(--border);
+}
+
+.msg.ai {
+  background: linear-gradient(135deg, #101ea0, #050469);
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.msg.ai::before {
+  content: '';
+  width: 150px;
+  height: 90px;
+  background-image: url('https://i.postimg.cc/yYSSJtNv/SSS-Transparent.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+  border-radius: 10%;
+}
+
+.msg.ai.thinking::before {
+  animation: flicker 1s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+body.light .msg.ai::before {
+  background-image: url('https://i.postimg.cc/yYSSJtNv/SSS-Transparent.png');
+}
+
+.wallet-btn {
+  background: #6b7280;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.wallet-btn:hover {
+  background: var(--accent);
+}
+
+.theme-toggle {
+  float: right;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+/* Input */
+.input-bar {
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+}
+
+body.light .msg.user {
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid var(--border);
+}
+
+body.light .msg.ai {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #ffffff;
+}
+
+body.light .sidebar {
+  background: #ffffff;
+}
+
+body.light .nav-item {
+  color: #334155;
+}
+
+body.light .nav-item.active {
+  background: rgba(37,99,235,.12);
+  color: #0f172a;
+}
+
+body.light input {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+/* Default = dark mode */
+.logo-dark {
+  display: block;
+}
+
+.logo-light {
+  display: none;
+}
+
+/* Light mode */
+body.light .logo-dark {
+  display: none;
+}
+
+body.light .logo-light {
+  display: block;
+}
+
+.logo {
+  height: clamp(36px, 5vw, 56px);
+  opacity: 0.95;
+}
+
+.input-bar input {
+  flex: 1;
+  background: #000000;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.input-bar button {
+  background: var(--accent);
+  color: #ffffff; /* ← add this */
+  border: none;
+  border-radius: 10px;
+  padding: 0 24px;
+font-size: 1.5rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.logo-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  padding-top: clamp(12px, 2vw, 16px);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo-wrap:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.logo-wrap img {
+  max-width: 100%;
+  height: auto;
+  max-height: clamp(130px, 15vw, 160px);
+  transition: filter 0.3s ease;
+}
+
+.logo-wrap:hover img {
+  filter: brightness(1.1);
+}
+
+.brand-logo {
+  height: 60px; /* increase if you want more presence */
+  width: auto;
+}
+
+.brand-text {
+  font-weight: 600;
+  font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+  letter-spacing: 0.4px;
+  opacity: 0.65;
+  line-height: 1;
+  align-self: center;
+  white-space: nowrap;
+}
+
+.brand-text-label {
+  font-weight: 600;
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  letter-spacing: 0.5px;
+  color: var(--text);
+  opacity: 0.9;
+  text-align: center;
+  position: absolute;
+  bottom: clamp(4px, 5vw, 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  transition: opacity 0.3s ease, letter-spacing 0.3s ease;
+}
+
+.logo-wrap:hover + .brand-text-label,
+.brand-text-label:hover {
+  opacity: 1;
+  letter-spacing: 1px;
+}
+
+body.light .brand-text-label {
+  color: var(--text);
+  opacity: 0.85;
+}
+</style>
+</head>
+
+<body>
+<div class="sidebar">
+<div class="sidebar-header">
+<div class="brand">
+  <div class="logo-wrap">
+    <img
+      src="https://i.postimg.cc/sxbQ69TJ/s-SS-logo.png"
+      class="logo-dark"
+      alt="Superscripts logo dark"
+    />
+    <img
+      src="https://i.postimg.cc/fTrY6D7c/SSS-Transparen-black-(2).png"
+      class="logo-light"
+      alt="Superscripts logo light"
+    />
+  </div>
+  <div class="brand-text-label">Super Script Science</div>
+</div>
+ </div>
+  <div class="nav-item active" onclick="location.reload()">Chat</div>
+  <div class="nav-item soon" style="cursor: pointer;">Scenes / Scripts</div>
+  <div class="nav-item soon" style="cursor: pointer;">Generators</div>
+  <div class="nav-item soon" style="cursor: pointer;">Projects</div>
+  <div class="social-icons">
+    <div class="social-icon" onclick="window.open('https://superscripts.club', '_blank')" title="Website">
+      <img src="https://i.postimg.cc/sxbQ69TJ/s-SS-logo.png" alt="Website" class="social-icon-img social-icon-logo social-icon-logo-dark">
+      <img src="https://i.postimg.cc/fTrY6D7c/SSS-Transparen-black-(2).png" alt="Website" class="social-icon-img social-icon-logo social-icon-logo-light">
+    </div>
+    <div class="social-icon" onclick="window.open('https://x.com/superscripts', '_blank')" title="X (Twitter)">𝕏</div>
+    <div class="social-icon" onclick="window.open('https://t.me/superscripts', '_blank')" title="Telegram">
+      <img src="https://i.postimg.cc/B6K0Gd6P/Tg-white-icon.png" alt="Telegram" class="social-icon-img social-icon-tg social-icon-tg-dark">
+      <img src="https://i.postimg.cc/gJjkfS9M/send.png" alt="Telegram" class="social-icon-img social-icon-tg social-icon-tg-light">
+    </div>
+  </div>
+</div>
+
+<div class="main">
+<div class="header">
+  <span>Chat</span>
+
+<div style="display: flex; gap: 10px; align-items: center;">
+        <button class="wallet-btn">Connect Wallet</button>
+        <button onclick="toggleTheme()" class="theme-toggle">◐</button>
+  </div>
+</div>
+
+  <div class="messages" id="messages">
+    <div class="msg user">Hello!</div>
+    <div class="msg ai">What are you evaluating?</div>
+  </div>
+
+  <div class="input-bar">
+    <input id="q" placeholder="Type a message…" onkeydown="handleKey(event)" />
+    <button onclick="window.send()">Send</button>
+  </div>
+</div>
+
+<script>
+const intros = [
+  "I am Super Scripts Science — you can call me SSS. What insight are you turning into value today?",
+  "SSS here. What's the core question you're evaluating?",
+  "Super Scripts Science online — define the problem, I'll structure the answer.",
+  "I'm SSS, your investor-focused AI. What trade script or opportunity are you analyzing?",
+  "Super Script Science engaged. What knowledge are you monetizing?",
+  "Call me SSS — what actionable insight do you need?",
+  "I'm Super Scripts Science. Script your edge — what market variable are you testing?",
+  "SSS ready. Turn knowledge into opportunity — what analysis do you want?",
+  "Super Scripts Science at your service. Frame the question clearly, I'll deliver concise insights.",
+  "I am SSS. Start with the thesis you want to pressure-test.",
+  "Super Scripts Science here. What decision are you validating or challenging?",
+  "SSS online. What investment insight are you exploring today?",
+  "I'm Super Scripts Science — built for investors, traders, and builders. What's your question?"
+];
+
+function toggleTheme() {
+  document.body.classList.toggle("light");
+}
+
+function handleKey(e) {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    send();
+  }
+}
+
+function startTypingIndicator(el) {
+  let dots = 0;
+  return setInterval(() => {
+    dots = (dots + 1) % 4;
+    el.textContent = "Thinking" + ".".repeat(dots);
+  }, 450);
+}
+
+async function send() {
+  const input = document.getElementById("q");
+  const text = input.value.trim();
+  if (!text) return;
+
+  const messages = document.getElementById("messages");
+
+  // user bubble
+  const userMsg = document.createElement("div");
+  userMsg.className = "msg user";
+  userMsg.textContent = text;
+  messages.appendChild(userMsg);
+
+  input.value = "";
+  messages.scrollTop = messages.scrollHeight;
+
+  // AI bubble
+  const aiMsg = document.createElement("div");
+  aiMsg.className = "msg ai thinking";
+  aiMsg.textContent = "Thinking";
+const typingTimer = startTypingIndicator(aiMsg);
+  messages.appendChild(aiMsg);
+  messages.scrollTop = messages.scrollHeight;
+
+  try {
+   const res = await fetch("https://api.superscripts.club/ask", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true"
+    },
+    body: JSON.stringify({ question: text })
+    });
+
+
+   const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+
+    let received = false;
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value);
+      if (chunk && !received) {
+        // First chunk received - stop thinking animation
+        clearInterval(typingTimer);
+        aiMsg.classList.remove("thinking");
+        aiMsg.textContent = "";
+        received = true;
+      }
+
+      aiMsg.textContent += chunk;
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    if (!received || aiMsg.textContent.trim() === "") {
+      aiMsg.textContent = "…";
+    }
+  } catch (e) {
+    clearInterval(typingTimer);
+    aiMsg.classList.remove("thinking");
+    aiMsg.textContent = "Error contacting server.";
+  }
+}
+</script>
+
+
+</body>
+</html>
