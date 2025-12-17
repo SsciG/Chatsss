@@ -74,21 +74,21 @@ body {
 }
 
 .nav-item {
-  padding: 14px 16px;
+  padding: 10px 12px;
   border-radius: 8px;
   color: var(--muted);
   margin-bottom: 6px;
-  font-size: 1.5rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(37, 99, 235, 0.15);
 }
 
 .nav-item.active {
-  background: rgba(16,185,129,.12);
+  background: rgba(37, 99, 235, 0.2);
   color: var(--text);
 }
 
@@ -99,10 +99,10 @@ body {
 .nav-item.soon::after {
   content: "Soon";
   position: absolute;
-  right: 16px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1rem;
+  font-size: 0.7rem;
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -202,11 +202,11 @@ body.light .social-icon-tg-light {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 0 32px;
-  font-size: 1.5rem;
+  padding: 0 24px;
+  font-size: 1rem;
   border-bottom: 1px solid var(--border);
   font-weight: 500;
-  min-height: 64px;
+  min-height: 50px;
 }
 
 .messages {
@@ -227,11 +227,11 @@ body.light .social-icon-tg-light {
 
 /* Bubbles */
 .msg {
-  max-width: 75%;
-  padding: 16px 20px;
-  border-radius: 20px;
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 16px;
   line-height: 1.4;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .msg.user {
@@ -250,8 +250,8 @@ body.light .social-icon-tg-light {
 
 .msg.ai::before {
   content: '';
-  width: 100px;
-  height: 60px;
+  width: 70px;
+  height: 42px;
   background-image: url('https://i.postimg.cc/yYSSJtNv/SSS-Transparent.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -364,19 +364,19 @@ body.light .logo-light {
   flex: 1;
   background: #000000;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 16px 18px;
+  border-radius: 8px;
+  padding: 12px 14px;
   color: var(--text);
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .input-bar button {
   background: var(--accent);
-  color: #ffffff; /* ← add this */
+  color: #ffffff;
   border: none;
-  border-radius: 10px;
-  padding: 0 24px;
-font-size: 1.5rem;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-size: 0.9rem;
   font-weight: 400;
   cursor: pointer;
 }
