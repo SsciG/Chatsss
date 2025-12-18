@@ -458,6 +458,211 @@ body.light .brand-text-label {
   color: var(--text);
   opacity: 0.85;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Main chat container - reorder to put header inside at top */
+  .main {
+    display: flex;
+    flex-direction: column;
+    order: 1; /* Main section goes first */
+    flex: 1;
+    min-height: 0;
+    margin-bottom: 50px; /* Space for fixed social footer */
+  }
+
+  /* Header with buttons - stays at top of .main */
+  .header {
+    order: 1; /* First in main */
+    padding: 8px 16px;
+    min-height: 40px;
+    font-size: 0.9rem;
+    justify-content: flex-end;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header > span {
+    display: none;
+  }
+
+  .wallet-btn, .theme-toggle {
+    height: 28px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  .theme-toggle {
+    font-size: 1.1rem;
+    min-width: 35px;
+  }
+
+  /* Sidebar - contains menu items, goes after header */
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    order: 2; /* Sidebar with menu goes second */
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Hide logo/brand section on mobile */
+  .sidebar-header {
+    display: none;
+  }
+
+  /* Navigation menu items horizontal */
+  .nav-item {
+    display: inline-block;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    padding: 6px 10px;
+    font-size: 0.65rem;
+  }
+
+  .nav-item.soon::after {
+    font-size: 0.55rem;
+    right: 8px;
+  }
+
+  /* Social icons - fixed at bottom */
+  .social-icons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 10px;
+    gap: 15px;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+    background: var(--panel);
+    z-index: 100;
+  }
+
+  .social-icon {
+    font-size: 1.3rem;
+    height: 2.2rem;
+    width: 2.2rem;
+  }
+
+  .social-icon-img {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .social-icon-logo {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .social-icon-tg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  /* Messages - inside main, after header */
+  .messages {
+    order: 2; /* After header in main */
+    padding: 16px;
+    padding-bottom: 70px;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+
+  .msg.ai::before {
+    width: 50px;
+    height: 30px;
+  }
+
+  /* Input bar - inside main, at bottom */
+  .input-bar {
+    order: 3; /* Last in main */
+    padding: 12px;
+    padding-bottom: 62px; /* Extra space above social footer */
+    gap: 8px;
+  }
+
+  .input-bar input {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .input-bar button {
+    padding: 0 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+
+  .header {
+    flex-wrap: wrap;
+    padding: 8px 12px;
+  }
+
+  .header > span {
+    flex: 1 1 100%;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .header > div {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .wallet-btn {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+
+  .messages {
+    padding: 12px;
+  }
+
+  .msg {
+    max-width: 90%;
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+
+  .msg.ai::before {
+    width: 40px;
+    height: 24px;
+  }
+
+  .input-bar {
+    padding: 10px;
+  }
+
+  .input-bar input {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .input-bar button {
+    padding: 0 12px;
+    font-size: 0.8rem;
+  }
+}
 </style>
 </head>
 
