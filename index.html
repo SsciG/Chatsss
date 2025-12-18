@@ -459,6 +459,53 @@ body.light .brand-text-label {
   opacity: 0.85;
 }
 
+/* Hide mobile social icons on desktop */
+.social-icons-mobile {
+  display: none;
+}
+
+/* Mobile menu dropdown */
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  height: 28px;
+  min-width: 35px;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-dropdown {
+  display: none;
+}
+
+.mobile-menu-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mobile-menu-item:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu-item:hover {
+  background: rgba(37, 99, 235, 0.15);
+}
+
+.mobile-menu-item.active {
+  background: rgba(37, 99, 235, 0.2);
+  color: var(--text);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   body {
@@ -473,21 +520,43 @@ body.light .brand-text-label {
     order: 1; /* Main section goes first */
     flex: 1;
     min-height: 0;
-    margin-bottom: 50px; /* Space for fixed social footer */
+    margin-bottom: 0; /* No extra space for fixed social footer */
   }
 
   /* Header with buttons - stays at top of .main */
   .header {
     order: 1; /* First in main */
-    padding: 8px 16px;
+    padding: 8px 16px 8px 8px;
     min-height: 40px;
     font-size: 0.9rem;
-    justify-content: flex-end;
+    justify-content: space-between;
     border-bottom: 1px solid var(--border);
+    position: relative;
   }
 
   .header > span {
     display: none;
+  }
+
+  /* Add logo to header on mobile - LEFT SIDE */
+  .header::before {
+    content: '';
+    width: 85px;
+    height: 51px;
+    background-image: var(--logo-image);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+    display: block;
+    margin-left: -4px;
+  }
+
+  body {
+    --logo-image: url('https://i.postimg.cc/sxbQ69TJ/s-SS-logo.png');
+  }
+
+  body.light {
+    --logo-image: url('https://i.postimg.cc/fTrY6D7c/SSS-Transparen-black-(2).png');
   }
 
   .wallet-btn, .theme-toggle {
@@ -501,50 +570,48 @@ body.light .brand-text-label {
     min-width: 35px;
   }
 
-  /* Sidebar - contains menu items, goes after header */
-  .sidebar {
-    width: 100%;
-    border-right: none;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    order: 2; /* Sidebar with menu goes second */
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
+  /* Show mobile menu button */
+  .mobile-menu-btn {
+    display: inline-flex;
   }
 
-  /* Hide logo/brand section on mobile */
-  .sidebar-header {
-    display: none;
-  }
-
-  /* Navigation menu items horizontal */
-  .nav-item {
-    display: inline-block;
-    margin-right: 6px;
-    margin-bottom: 6px;
-    padding: 6px 10px;
-    font-size: 0.65rem;
-  }
-
-  .nav-item.soon::after {
-    font-size: 0.55rem;
-    right: 8px;
-  }
-
-  /* Social icons - fixed at bottom */
-  .social-icons {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+  /* Show mobile dropdown */
+  .mobile-menu-dropdown {
+    display: block;
+    position: absolute;
+    top: 100%;
     right: 0;
+    left: auto;
+    width: 25%;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    z-index: 50;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+  }
+
+  .mobile-menu-dropdown.open {
+    max-height: 200px;
+  }
+
+  /* Hide desktop sidebar completely on mobile */
+  .sidebar {
+    display: none !important;
+  }
+
+  /* Show mobile social icons */
+  .social-icons-mobile {
+    display: flex !important;
+    order: 4; /* After input bar */
     width: 100%;
     padding: 10px;
     gap: 15px;
     border-top: 1px solid var(--border);
     margin-top: 0;
     background: var(--panel);
-    z-index: 100;
+    justify-content: center;
   }
 
   .social-icon {
@@ -572,7 +639,8 @@ body.light .brand-text-label {
   .messages {
     order: 2; /* After header in main */
     padding: 16px;
-    padding-bottom: 70px;
+    padding-top: 16px; /* No extra space needed for dropdown */
+    padding-bottom: 16px;
     gap: 12px;
     flex: 1;
   }
@@ -592,7 +660,7 @@ body.light .brand-text-label {
   .input-bar {
     order: 3; /* Last in main */
     padding: 12px;
-    padding-bottom: 62px; /* Extra space above social footer */
+    padding-bottom: 12px; /* Reduced space above social footer */
     gap: 8px;
   }
 
@@ -614,19 +682,7 @@ body.light .brand-text-label {
   }
 
   .header {
-    flex-wrap: wrap;
-    padding: 8px 12px;
-  }
-
-  .header > span {
-    flex: 1 1 100%;
-    margin-bottom: 6px;
-    text-align: center;
-  }
-
-  .header > div {
-    flex: 1;
-    justify-content: center;
+    padding: 8px 12px 8px 8px;
   }
 
   .wallet-btn {
@@ -634,8 +690,13 @@ body.light .brand-text-label {
     padding: 4px 8px;
   }
 
+  .theme-toggle {
+    font-size: 1rem;
+  }
+
   .messages {
     padding: 12px;
+    padding-top: 12px !important;
   }
 
   .msg {
@@ -709,6 +770,14 @@ body.light .brand-text-label {
 <div style="display: flex; gap: 10px; align-items: center;">
         <button class="wallet-btn">Connect Wallet</button>
         <button onclick="toggleTheme()" class="theme-toggle">◐</button>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+  </div>
+
+  <div class="mobile-menu-dropdown" id="mobileMenu">
+    <div class="mobile-menu-item active" onclick="location.reload()">Chat</div>
+    <div class="mobile-menu-item">Scenes / Scripts <span style="opacity: 0.6;">(Soon)</span></div>
+    <div class="mobile-menu-item">Generators <span style="opacity: 0.6;">(Soon)</span></div>
+    <div class="mobile-menu-item">Projects <span style="opacity: 0.6;">(Soon)</span></div>
   </div>
 </div>
 
@@ -720,6 +789,19 @@ body.light .brand-text-label {
   <div class="input-bar">
     <input id="q" placeholder="Type a message…" onkeydown="handleKey(event)" />
     <button onclick="window.send()">Send</button>
+  </div>
+
+  <!-- Mobile social icons -->
+  <div class="social-icons social-icons-mobile">
+    <div class="social-icon" onclick="window.open('https://superscripts.club', '_blank')" title="Website">
+      <img src="https://i.postimg.cc/sxbQ69TJ/s-SS-logo.png" alt="Website" class="social-icon-img social-icon-logo social-icon-logo-dark">
+      <img src="https://i.postimg.cc/fTrY6D7c/SSS-Transparen-black-(2).png" alt="Website" class="social-icon-img social-icon-logo social-icon-logo-light">
+    </div>
+    <div class="social-icon" onclick="window.open('https://x.com/superscripts', '_blank')" title="X (Twitter)">𝕏</div>
+    <div class="social-icon" onclick="window.open('https://t.me/superscripts', '_blank')" title="Telegram">
+      <img src="https://i.postimg.cc/B6K0Gd6P/Tg-white-icon.png" alt="Telegram" class="social-icon-img social-icon-tg social-icon-tg-dark">
+      <img src="https://i.postimg.cc/gJjkfS9M/send.png" alt="Telegram" class="social-icon-img social-icon-tg social-icon-tg-light">
+    </div>
   </div>
 </div>
 
@@ -740,8 +822,33 @@ const intros = [
   "I'm Super Scripts Science — built for investors, traders, and builders. What's your question?"
 ];
 
+// Warmup the server when page loads
+async function warmupServer() {
+  try {
+    await fetch("https://api.superscripts.club/ask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true"
+      },
+      body: JSON.stringify({ question: "warmup" })
+    });
+    console.log("Server warmed up");
+  } catch (e) {
+    console.log("Warmup failed, but that's okay");
+  }
+}
+
+// Call warmup when page loads
+window.addEventListener('DOMContentLoaded', warmupServer);
+
 function toggleTheme() {
   document.body.classList.toggle("light");
+}
+
+function toggleMobileMenu() {
+  const menu = document.getElementById("mobileMenu");
+  menu.classList.toggle("open");
 }
 
 function handleKey(e) {
