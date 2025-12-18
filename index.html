@@ -491,6 +491,9 @@ body.light .brand-text-label {
   font-size: 0.85rem;
   cursor: pointer;
   transition: background 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mobile-menu-item:last-child {
@@ -582,7 +585,7 @@ body.light .brand-text-label {
     top: 100%;
     right: 0;
     left: auto;
-    width: 25%;
+    width: 35%;
     background: var(--panel);
     border-bottom: 1px solid var(--border);
     border-left: 1px solid var(--border);
