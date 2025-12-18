@@ -828,14 +828,25 @@ const intros = [
 // Warmup the server when page loads
 async function warmupServer() {
   try {
-    await fetch("https://api.superscripts.club/ask", {
+    const response = await fetch("https://api.superscripts.club/ask", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "ngrok-skip-browser-warning": "true"
       },
-      body: JSON.stringify({ question: "warmup" })
+      body: JSON.stringify({ question: "hi" })
     });
+
+    // Consume the stream silently to actually load the model
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      // Just consume the data, don't display it
+    }
+
     console.log("Server warmed up");
   } catch (e) {
     console.log("Warmup failed, but that's okay");
